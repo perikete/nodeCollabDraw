@@ -5,7 +5,7 @@ var express = require('express')
   , mongoose = require('mongoose')
   , CursorPosition = require('./mongo-item.js')(mongoose);
 
-mongoose.connect('mongodb://test:test@ds045608.mongolab.com:45608/test'); 
+mongoose.connect(process.env.MONGO_DEVELOPMENT_URI); 
 
 app.engine('html', require('ejs').renderFile);
 app.use(express.bodyParser());
@@ -37,7 +37,7 @@ io.sockets.on('connection', function (socket) {
           console.log('Emiting CursorPosition(X): ' + doc.posX + ' - (Y): ' + doc.posY);
           socket.emit('play', doc);
         });
-        
+
       }      
     });
 
